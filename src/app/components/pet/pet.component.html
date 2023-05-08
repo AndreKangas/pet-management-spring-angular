@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>Pet Management</h1>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" [(ngModel)]="pet.name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="identificationCode">Identification Code</label>
+      <input type="text" class="form-control" id="identificationCode" [(ngModel)]="pet.identificationCode" name="identificationCode" required>
+    </div>
+
+    <div class="form-group">
+      <label for="type">Type</label>
+      <select class="form-control" id="type" [(ngModel)]="pet.type" name="type" required>
+        <option *ngFor="let type of types" [value]="type.id">{{ type.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="furColor">Fur Color</label>
+      <input type="text" class="form-control" id="furColor" [(ngModel)]="pet.furColor" name="furColor" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Pet</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pet of pets">
+        <td>{{ pet.id }}</td>
+        <td>{{ pet.name }}</td>
+        <td>{{ pet.type?.name }}</td>
+        <td>
+          <button class="btn btn-info" (click)="editPet(pet)">Edit</button>
+          <button *ngIf="isEditing" type="submit" class="btn btn-primary">Update Pet</button>
+          <button *ngIf="!isEditing" type="submit" class="btn btn-primary">Save Pet</button>
+          <button class="btn btn-danger" (click)="pet.id && deletePet(pet.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
